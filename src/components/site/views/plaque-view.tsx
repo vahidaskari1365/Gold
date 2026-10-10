@@ -20,6 +20,9 @@ import { usePrices } from "../prices-provider"
 import { gramPriceByKarat } from "@/lib/gold-calc"
 import { formatToman, faNumber } from "@/lib/format"
 import { toast } from "@/hooks/use-toast"
+import { MagicCard } from "@/components/magicui/magic-card"
+import { BorderBeam } from "@/components/magicui/border-beam"
+import { NumberTicker } from "@/components/magicui/number-ticker"
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
@@ -254,7 +257,16 @@ export function PlaqueView() {
           transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
           className="lg:sticky lg:top-28 lg:self-start"
         >
-          <div className="glass relative overflow-hidden rounded-3xl p-6 md:p-8">
+          <MagicCard
+            mode="orb"
+            glowSize={460}
+            glowBlur={85}
+            glowOpacity={0.45}
+            glowFrom="#f3d27a"
+            glowTo="#8a6d1d"
+            className="overflow-hidden rounded-3xl"
+          >
+          <div className="relative p-6 md:p-8">
             <div className="sheen absolute inset-0 rounded-3xl" />
             <PlaqueSvg
               text={text}
@@ -268,6 +280,8 @@ export function PlaqueView() {
               پیش‌نمایش تقریبی — ساخت نهایی با دست استادکار انجام می‌شود
             </div>
           </div>
+          <BorderBeam size={70} duration={9} colorFrom="#f7e7b8" colorTo="#b8860b" borderWidth={1.5} />
+          </MagicCard>
 
           {/* تفکیک قیمت */}
           <div className="glass mt-4 rounded-3xl p-5">
@@ -292,7 +306,7 @@ export function PlaqueView() {
               <div className="flex items-center justify-between">
                 <span className="text-sm font-bold">مبلغ سفارش</span>
                 <span className="text-lg font-black tabular-nums gold-text">
-                  {formatToman(total)}
+                  <NumberTicker value={total} /> تومان
                 </span>
               </div>
               <p className="pt-1 text-[9px] text-muted-foreground/70">

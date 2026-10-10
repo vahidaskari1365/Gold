@@ -6,6 +6,9 @@ import { motion } from "framer-motion"
 import { BadgeCheck, Scale, ShieldCheck, Phone, MapPin, Clock } from "lucide-react"
 import { useView } from "@/lib/store"
 import { useCountUp } from "../count-up"
+import { MagicCard } from "@/components/magicui/magic-card"
+import { BorderBeam } from "@/components/magicui/border-beam"
+import { ShimmerButton } from "@/components/magicui/shimmer-button"
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
@@ -17,13 +20,22 @@ function Stat({ value, suffix, label, i }: { value: number; suffix: string; labe
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.55, delay: i * 0.08, ease: EASE }}
-      className="glass rounded-2xl p-5 text-center"
+      className="rounded-2xl"
     >
-      <div className="text-2xl font-black tabular-nums gold-text md:text-3xl">
-        {shown.toLocaleString("fa-IR", { maximumFractionDigits: 0 })}
-        <span className="text-lg">{suffix}</span>
-      </div>
-      <div className="mt-1.5 text-[10px] text-muted-foreground">{label}</div>
+      <MagicCard
+        className="rounded-2xl"
+        gradientSize={170}
+        gradientColor="#2b2210"
+        gradientOpacity={0.55}
+      >
+        <div className="p-5 text-center">
+          <div className="text-2xl font-black tabular-nums gold-text md:text-3xl">
+            {shown.toLocaleString("fa-IR", { maximumFractionDigits: 0 })}
+            <span className="text-lg">{suffix}</span>
+          </div>
+          <div className="mt-1.5 text-[10px] text-muted-foreground">{label}</div>
+        </div>
+      </MagicCard>
     </motion.div>
   )
 }
@@ -137,13 +149,22 @@ export function AboutView() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: i * 0.08, ease: EASE }}
-              className="glass group rounded-3xl p-6 transition-colors duration-300 hover:border-gold/30"
+              className="rounded-3xl"
             >
-              <span className="grid size-11 place-items-center rounded-2xl border border-gold/25 bg-gold/8 text-gold transition-transform duration-300 group-hover:scale-110">
-                <v.icon className="size-5" />
-              </span>
-              <h3 className="mt-4 text-sm font-black">{v.title}</h3>
-              <p className="mt-2 text-xs leading-6 text-muted-foreground">{v.desc}</p>
+              <MagicCard
+                className="group rounded-3xl"
+                gradientSize={220}
+                gradientColor="#241d10"
+                gradientOpacity={0.5}
+              >
+                <div className="p-6">
+                  <span className="grid size-11 place-items-center rounded-2xl border border-gold/25 bg-gold/8 text-gold transition-transform duration-300 group-hover:scale-110">
+                    <v.icon className="size-5" />
+                  </span>
+                  <h3 className="mt-4 text-sm font-black">{v.title}</h3>
+                  <p className="mt-2 text-xs leading-6 text-muted-foreground">{v.desc}</p>
+                </div>
+              </MagicCard>
             </motion.div>
           ))}
         </div>
@@ -155,8 +176,15 @@ export function AboutView() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, ease: EASE }}
-        className="glass mt-14 grid gap-6 rounded-3xl p-7 md:grid-cols-3 md:p-9"
+        className="mt-14 rounded-3xl"
       >
+        <MagicCard
+          className="rounded-3xl"
+          gradientSize={320}
+          gradientColor="#241d10"
+          gradientOpacity={0.4}
+        >
+          <div className="relative grid gap-6 p-7 md:grid-cols-3 md:p-9">
         <div className="flex items-start gap-3">
           <span className="grid size-10 shrink-0 place-items-center rounded-full border border-gold/25 bg-gold/8 text-gold">
             <MapPin className="size-4" />
@@ -190,15 +218,21 @@ export function AboutView() {
             </p>
           </div>
         </div>
+          </div>
+          <BorderBeam size={70} duration={10} colorFrom="#f7e7b8" colorTo="#b8860b" className="opacity-80" />
+        </MagicCard>
       </motion.div>
 
       <div className="mt-10 text-center">
-        <button
+        <ShimmerButton
           onClick={() => setView("collection")}
-          className="h-12 rounded-full px-8 text-sm font-black text-[oklch(0.15_0.02_80)] gold-surface transition-transform duration-300 hover:scale-[1.03] outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          background="linear-gradient(120deg, oklch(0.55 0.09 78) 0%, oklch(0.78 0.11 85) 35%, oklch(0.92 0.06 94) 55%, oklch(0.78 0.11 85) 75%, oklch(0.55 0.09 78) 100%)"
+          shimmerColor="rgba(255,252,235,0.9)"
+          className="h-12 px-8 text-sm font-black text-[oklch(0.15_0.02_80)] outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          shimmerDuration="4s"
         >
           کاوش در کالکشن آرا
-        </button>
+        </ShimmerButton>
       </div>
     </div>
   )

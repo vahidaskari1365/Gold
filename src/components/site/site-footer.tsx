@@ -1,9 +1,10 @@
 "use client"
 
-// فوتر مینیمال — چسبیده به پایین با mt-auto
+// فوتر مینیمال — چسبیده به پایین با mt-auto + نوار Marquee طلایی Magic UI
 import { useView } from "@/lib/store"
 import { usePrices } from "./prices-provider"
 import type { SiteView } from "@/lib/store"
+import { Marquee } from "@/components/magicui/marquee"
 
 const LINKS: { id: SiteView; label: string }[] = [
   { id: "home", label: "خانه" },
@@ -13,12 +14,37 @@ const LINKS: { id: SiteView; label: string }[] = [
   { id: "about", label: "درباره ما" },
 ]
 
+const MARQUEE_WORDS = [
+  "جواهرات",
+  "سرویس",
+  "سکه",
+  "شمش",
+  "طلای آب‌شده",
+  "پلاک اختصاصی",
+  "قیمت لحظه‌ای",
+]
+
 export function SiteFooter() {
   const setView = useView((s) => s.setView)
   const { updatedAt } = usePrices()
 
   return (
     <footer className="mt-auto border-t border-border/60 bg-[oklch(0.11_0.004_80/80%)] backdrop-blur-md">
+      {/* نوار تزئینی متحرک Magic UI */}
+      <div className="overflow-hidden border-b border-border/40" aria-hidden>
+        <Marquee className="py-3 [--duration:55s] [--gap:0rem]" repeat={3} pauseOnHover>
+          {MARQUEE_WORDS.map((w) => (
+            <span
+              key={w}
+              className="mx-7 flex items-center gap-7 text-[11px] font-bold tracking-[0.25em] text-gold/45"
+            >
+              {w}
+              <span className="text-gold/25">✦</span>
+            </span>
+          ))}
+        </Marquee>
+      </div>
+
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-3 md:px-6">
         {/* برند */}
         <div>

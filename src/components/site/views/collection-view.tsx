@@ -25,6 +25,8 @@ import { usePrices } from "../prices-provider"
 import { computeItemPrice, calcProductPrice, gramPriceByKarat } from "@/lib/gold-calc"
 import { formatToman, faNumber } from "@/lib/format"
 import { toast } from "@/hooks/use-toast"
+import { NumberTicker } from "@/components/magicui/number-ticker"
+import { BorderBeam } from "@/components/magicui/border-beam"
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
@@ -241,7 +243,7 @@ export function CollectionView() {
                   </span>
                 </div>
 
-                <div className="mt-5 space-y-2 rounded-2xl border border-border/60 bg-black/20 p-4 text-xs">
+                <div className="relative mt-5 space-y-2 overflow-hidden rounded-2xl border border-border/60 bg-black/20 p-4 text-xs">
                   {breakdown(selected) ? (
                     <>
                       <Row label="ارزش طلای خالص" value={breakdown(selected)!.base} />
@@ -264,9 +266,10 @@ export function CollectionView() {
                   <div className="flex items-center justify-between">
                     <span className="font-bold">قیمت نهایی</span>
                     <span className="text-base font-black tabular-nums gold-text">
-                      {formatToman(computeItemPrice(selected, map))}
+                      <NumberTicker value={computeItemPrice(selected, map)} /> تومان
                     </span>
                   </div>
+                  <BorderBeam size={40} duration={8} colorFrom="#f7e7b8" colorTo="#b8860b" className="opacity-70" />
                 </div>
 
                 <Button

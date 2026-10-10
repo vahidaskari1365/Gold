@@ -1,6 +1,7 @@
 "use client"
 
-// نوار قیمت لحظه‌ای — مارکی پیوسته بالای سایت
+// نوار قیمت لحظه‌ای — Magic UI Marquee (اقتباس از github.com/magicuidesign/magicui)
+import { Marquee } from "../magicui/marquee"
 import { usePrices } from "./prices-provider"
 import { AnimatedPrice } from "./count-up"
 import { formatPercent, faTime } from "@/lib/format"
@@ -61,12 +62,18 @@ export function PriceTicker() {
               در حال دریافت قیمت‌های زنده از tgju.org…
             </div>
           ) : (
-            <div className="marquee-track h-8 items-center">
-              <div className="flex h-8 items-center">{row}</div>
-              <div className="flex h-8 items-center" aria-hidden>
+            <>
+              {/* محو شدن لبه‌ها */}
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l from-[oklch(0.11_0.004_80)] to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r from-[oklch(0.11_0.004_80)] to-transparent" />
+              <Marquee
+                className="h-8 items-center p-0 [--duration:48s] [--gap:0rem]"
+                pauseOnHover
+                repeat={3}
+              >
                 {row}
-              </div>
-            </div>
+              </Marquee>
+            </>
           )}
         </div>
         {updatedAt && (

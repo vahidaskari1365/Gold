@@ -19,6 +19,8 @@ import { AnimatedPrice } from "../count-up"
 import { BUY_MULT, SELL_MULT } from "@/lib/gold-calc"
 import { formatToman, faNumber, formatPercent, faDateTime, toEnDigits } from "@/lib/format"
 import { toast } from "@/hooks/use-toast"
+import { MagicCard } from "@/components/magicui/magic-card"
+import { BorderBeam } from "@/components/magicui/border-beam"
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
@@ -132,8 +134,14 @@ export function TradeView() {
           initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.08, ease: EASE }}
-          className="glass overflow-hidden rounded-3xl"
+          className="rounded-3xl"
         >
+          <MagicCard
+            className="rounded-3xl"
+            gradientSize={280}
+            gradientColor="#241d10"
+            gradientOpacity={0.4}
+          >
           <div className="grid grid-cols-4 border-b border-border/60 px-5 py-3.5 text-[10px] font-bold text-muted-foreground">
             <span>دارایی</span>
             <span className="text-center">
@@ -180,6 +188,7 @@ export function TradeView() {
           <div className="px-5 py-3 text-[9px] text-muted-foreground/70">
             نرخ‌ها هر ۳۰ ثانیه از <span dir="ltr">tgju.org</span> به‌روزرسانی می‌شود.
           </div>
+          </MagicCard>
         </motion.div>
 
         {/* ماشین‌حساب معامله */}
@@ -187,8 +196,18 @@ export function TradeView() {
           initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.16, ease: EASE }}
-          className="glass rounded-3xl p-6"
+          className="rounded-3xl"
         >
+          <MagicCard
+            mode="orb"
+            glowSize={480}
+            glowBlur={80}
+            glowOpacity={0.4}
+            glowFrom="#f3d27a"
+            glowTo="#8a6d1d"
+            className="rounded-3xl"
+          >
+          <div className="p-6">
           {/* تب خرید/فروش */}
           <div className="grid grid-cols-2 gap-1 rounded-full border border-border/60 bg-black/25 p-1">
             {(
@@ -267,7 +286,7 @@ export function TradeView() {
           </div>
 
           {/* مبلغ */}
-          <div className="mt-6 rounded-2xl border border-gold/20 bg-gold/5 p-5 text-center">
+          <div className="relative mt-6 overflow-hidden rounded-2xl border border-gold/20 bg-gold/5 p-5 text-center">
             <div className="text-[10px] text-muted-foreground">
               {side === "buy" ? "مبلغ پرداختی شما" : "مبلغ دریافتی شما"}
             </div>
@@ -279,6 +298,7 @@ export function TradeView() {
             <div className="mt-1 text-[9px] text-muted-foreground/70">
               نرخ واحد: {unitPrice ? formatToman(unitPrice * mult) : "—"} از هر {isCoin ? "عدد" : "گرم"}
             </div>
+            <BorderBeam size={48} duration={6} colorFrom="#f7e7b8" colorTo="#b8860b" />
           </div>
 
           {/* اطلاعات */}
@@ -309,6 +329,8 @@ export function TradeView() {
           <p className="mt-3 text-center text-[9px] leading-5 text-muted-foreground/70">
             پس از ثبت درخواست، کارشناس معاملات برای عیارسنجی و تسویه با شما تماس می‌گیرد.
           </p>
+          </div>
+          </MagicCard>
         </motion.div>
       </div>
 

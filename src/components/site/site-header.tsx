@@ -15,6 +15,7 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet"
+import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text"
 
 const NAV: { id: SiteView; label: string }[] = [
   { id: "home", label: "خانه" },
@@ -53,9 +54,12 @@ export function SiteHeader() {
           </span>
           <span className="flex flex-col items-start leading-none">
             <span className="text-lg font-black tracking-tight">آرا</span>
-            <span className="text-[8px] font-medium tracking-[0.3em] text-muted-foreground">
+            <AnimatedShinyText
+              shimmerWidth={70}
+              className="text-[8px] font-medium tracking-[0.3em]"
+            >
               ARA GALLERY
-            </span>
+            </AnimatedShinyText>
           </span>
         </button>
 

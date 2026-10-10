@@ -81,3 +81,28 @@ Work Log:
 
 Stage Summary:
 - v2 "آرا" is live: cinematic minimal dark design, real tgju.org prices everywhere (ticker/header/home/trade/cart), 5 virtual pages, all order/trade flows E2E verified. Skills repos in /skills (reference material, not wired into runtime).
+
+---
+Task ID: 5
+Agent: main (Z.ai Code)
+Task: Magic UI edition — integrate github.com/magicuidesign/magicui component library into گالری آرا (user sent 4 magicui repo links: magicui, portfolio, blog-template, app-template)
+
+Work Log:
+- Cloned all 4 user-requested repos to /skills/magicui-*; read authentic component sources from apps/www/registry/magicui (79 components) + keyframes from apps/www/styles/globals.css
+- Created src/components/magicui/ — 12 adapted components: number-ticker (fa-IR Persian digits), blur-fade, marquee, magic-card (gold defaults, dark-only, hooks restructured to pass react-hooks rules), border-beam, shimmer-button (containerType inline for size queries), word-rotate (inline-grid popLayout, RTL-safe), animated-gradient-text, animated-shiny-text, aurora-text (gold palette), orbiting-circles, meteors (gold + rAF setState fix for lint), sparkles-text (gold)
+- globals.css: added @theme block with --animate-marquee/meteor/orbit/shimmer-slide/spin-around/shiny-text/aurora/gradient + all keyframes; extended prefers-reduced-motion block
+- price-ticker.tsx rewritten on Magic UI Marquee (pauseOnHover, edge fades)
+- home-view.tsx full Magic makeover: hero badge AnimatedShinyText+AnimatedGradientText, WordRotate headline (جاودان/درخشان/اصیل/ماندگار), ShimmerButton CTAs, Meteors, xl-only OrbitingCircles around floating coin, NumberTicker+BorderBeam live chip, market board = MagicCard+NumberTicker (gold_18 gets BorderBeam), category tiles inside MagicCard mouse-follow gold border, quote BlurFade, plaque teaser = MagicCard orb mode + SparklesText + BorderBeam
+- product-card.tsx wrapped in MagicCard (mouse-follow gold border) + BorderBeam on first card
+- collection-view: quick-view final price → NumberTicker, breakdown box BorderBeam
+- trade-view: rate table + calculator inside MagicCard (calculator orb mode), amount box BorderBeam
+- plaque-view: SVG preview inside MagicCard orb + BorderBeam, order total NumberTicker
+- about-view: stats/values/contact all MagicCard, contact BorderBeam, CTA ShimmerButton
+- site-footer: decorative gold Marquee strip; site-header: AnimatedShinyText "ARA GALLERY" tagline
+- Fixed lint (react-hooks/set-state-in-effect) via requestAnimationFrame wrapper in meteors
+- bun run lint: clean; tsc --noEmit (8GB heap): clean for src/; verified live /api/gold-price (gold_18 26,578,100T +1.03% from tgju)
+- Browser verification (agent-browser): hero (meteors/orbit/word-rotate/shimmer button/ticker), market cards live-spring numbers, add-to-cart (badge ۱ + toast + MagicCard glow), plaque heart/rose-gold live SVG preview, trade E2E order TR-478998 (5g bar = ۱۳۰٬۲۰۸٬۲۴۶), quick-view NumberTicker total, about + sticky footer marquee, mobile 390x844, zero console errors
+
+Stage Summary:
+- Site is now a "Magic UI edition" of آرا: 12 authentic Magic UI components adapted for RTL/Persian/gold, wired through every view; all commerce flows still E2E working; backend untouched
+- Reference repos live in /skills/magicui-{magicui,portfolio,blog-template,app-template}
