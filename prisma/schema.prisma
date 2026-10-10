@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// محصولات گالری: jewelry (جواهرات) | set (سرویس) | coin (سکه) | bar (شمش) | melted (طلای آب شده)
+model Product {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  category    String
+  subCategory String?
+  description String
+  weight      Float // گرم
+  karat       Int // 18 | 24 | 999
+  makingFee   Float    @default(7) // درصد اجرت ساخت
+  profit      Float    @default(7) // درصد سود فروشنده
+  tax         Float    @default(9) // درصد مالیات بر ارزش افزوده
+  image       String
+  stock       Int      @default(10)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+// قیمت‌های لحظه‌ای بازار
+model GoldPrice {
+  id        String   @id @default(cuid())
+  symbol    String   @unique
+  name      String
+  unit      String // gram | mesghal | piece | ounce
+  basePrice Float // قیمت پایه (تومان)
+  openPrice Float // قیمت شروع روز
+  price     Float // قیمت فعلی
+  updatedAt DateTime @updatedAt
+}
+
+// سفارش پلاک اختصاصی
+model CustomOrder {
+  id           String   @id @default(cuid())
+  orderCode    String   @unique
+  customerName String
+  phone        String
+  plaqueText   String
+  shape        String // rectangle | oval | circle | heart | star
+  calligraphy  String // nastaliq | thulth | modern
+  goldColor    String // yellow | rose | white
+  weight       Float
+  karat        Int      @default(18)
+  withChain    Boolean  @default(false)
+  note         String?
+  totalPrice   Float
+  status       String   @default("pending") // pending | in_design | production | done
+  createdAt    DateTime @default(now())
+}
+
+// سفارش خرید از فروشگاه
+model Order {
+  id           String   @id @default(cuid())
+  orderCode    String   @unique
+  customerName String
+  phone        String
+  address      String
+  note         String?
+  items        String // JSON
+  total        Float
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+}
+
+// درخواست خرید/فروش طلای آب‌شده، شمش و سکه
+model TradeRequest {
+  id           String   @id @default(cuid())
+  code         String   @unique
+  side         String // buy | sell
+  asset        String // gold18 | gold24 | melted | bar | coin_emami
+  weight       Float
+  amount       Float
+  customerName String
+  phone        String
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+}
